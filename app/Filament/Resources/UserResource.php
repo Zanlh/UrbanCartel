@@ -3,6 +3,9 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
+use App\Models\Category;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Set;
 use Filament\Pages\Page;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
@@ -16,6 +19,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class UserResource extends Resource
@@ -26,27 +30,27 @@ class UserResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required(),
+       return $form
+           ->schema([
+               Forms\Components\TextInput::make('name')
+                   ->required(),
 
-                Forms\Components\TextInput::make('email')
-                ->label('Email Address')
-                ->email()
-                ->maxLength(255)
-                ->unique(ignoreRecord: true)
-                ->required(),
+               Forms\Components\TextInput::make('email')
+                   ->label('Email Address')
+                   ->email()
+                   ->maxLength(255)
+                   ->unique(ignoreRecord: true)
+                   ->required(),
 
-                Forms\Components\DateTimePicker::make('email_verified_at')
-                ->label('Email Verified At')
-                ->default(now()),
+               Forms\Components\DateTimePicker::make('email_verified_at')
+                   ->label('Email Verified At')
+                   ->default(now()),
 
-                Forms\Components\TextInput::make('password')
-                ->password()
-                ->dehydrated(fn($state) => filled($state))
-                ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord),
-            ]);
+               Forms\Components\TextInput::make('password')
+                   ->password()
+                   ->dehydrated(fn($state) => filled($state))
+                   ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord),
+           ]);
     }
 
     public static function table(Table $table): Table
