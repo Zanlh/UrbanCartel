@@ -41,7 +41,7 @@ class CategoryResource extends Resource
                                 ->required()
                                 ->maxLength(255)
                                 ->live(onBlur: true)
-                                ->afterStateUpdated(fn (string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
+                                ->afterStateUpdated(fn(string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
 
                             TextInput::make('slug')
                                 ->maxLength(255)
@@ -90,7 +90,7 @@ class CategoryResource extends Resource
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
-               ])
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
